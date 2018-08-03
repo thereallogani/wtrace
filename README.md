@@ -16,6 +16,7 @@ Options:
   -f, --filter=VALUE         Display only events which names contain the
                                given keyword (case insensitive). Does not
                                impact the summary.
+  -w, --writefile=VALUE      Write the output to a file rather than printing
   -s, --system               Collect system statistics (DPC/ISR) - shown in
                                the summary.
   -c, --children             Trace process and all its children.
