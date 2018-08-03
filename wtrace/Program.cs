@@ -31,7 +31,7 @@ namespace LowLevelDesign.WinTrace
             List<string> procargs = null;
             bool showhelp = false, spawnNewConsoleWindow = false,
                 collectSystemStats = false, printSummary = true, traceChildProcesses = false;
-            string eventNameFilter = null;
+            string eventNameFilter = null, outputFilename = null;
 
             int pid = 0;
 
@@ -44,6 +44,7 @@ namespace LowLevelDesign.WinTrace
                 { "newconsole", "Start the process in a new console window.", v => { spawnNewConsoleWindow = v != null; } },
                 { "nosummary", "Prints only ETW events - no summary at the end.", v => { printSummary = v == null; } },
                 { "h|help", "Show this message and exit.", v => showhelp = v != null },
+                { "w|writefile=", "Write the output to a logfile", v => { outputFilename = v; } },
                 { "?", "Show this message and exit.", v => showhelp = v != null }
             };
 
@@ -77,7 +78,7 @@ namespace LowLevelDesign.WinTrace
             Trace.Listeners.Add(new ConsoleTraceListener());
 #endif
 
-            var traceSession = new TraceSession(new ConsoleTraceOutput(eventNameFilter), printSummary);
+            var traceSession = new TraceSession(new WTraceOutput(eventNameFilter, outputFilename), printSummary);
 
             SetConsoleCtrlCHook(traceSession);
 
